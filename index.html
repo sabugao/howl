@@ -72,13 +72,8 @@ h1 { margin: 0; max-width: 650px; font-size: clamp(58px, min(7vw, 10vh), 88px); 
 @keyframes breathe { 50% { transform: scale(.75); box-shadow: 0 0 0 8px rgba(15,124,148,.04); } }
 
 .phone-stage { position: relative; height: 100%; display: grid; place-items: center; padding: 4px 0; }
-.orbit { position: absolute; border: 1px solid rgba(255,255,255,.62); border-radius: 50%; transform: rotate(-12deg); }
-.orbit-one { width: min(38vw, 410px); height: min(38vw, 410px); }
-.orbit-two { width: min(31vw, 340px); height: min(42vw, 450px); transform: rotate(19deg); }
 .phone { position: relative; height: clamp(410px, 57vh, 520px); aspect-ratio: 163 / 330; padding: 6px; border-radius: 42px; background: linear-gradient(145deg, #1b1c20, #050506 55%, #24252a); box-shadow: 0 28px 70px rgba(38,29,53,.21), 0 3px 7px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.18); z-index: 1; }
 .phone::after { content: ""; position: absolute; inset: 2px; border-radius: 40px; border: 1px solid rgba(255,255,255,.3); pointer-events: none; }
-.phone::before { content: ""; position: absolute; left: -3px; top: 84px; width: 3px; height: 42px; border-radius: 3px 0 0 3px; background: linear-gradient(#4f5057,#16171a); box-shadow: 0 56px 0 #202126; }
-.phone-stage::after { content: ""; position: absolute; right: calc(50% - clamp(104px, 14.1vh, 145px)); top: 29%; width: 3px; height: 62px; border-radius: 0 3px 3px 0; background: linear-gradient(#55565d,#18191c); z-index: 2; }
 .phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 36px; background: rgba(251,251,253,.9); padding: 24px 10px 17px; display: flex; flex-direction: column; }
 .phone-screen::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 105% 46% at 5% 8%, rgba(255,199,173,.66), transparent 68%), radial-gradient(ellipse 100% 44% at 92% 47%, rgba(158,238,214,.61), transparent 68%), radial-gradient(ellipse 110% 47% at 24% 94%, rgba(199,181,242,.62), transparent 72%); filter: blur(13px); transform: scale(1.1); }
 .dynamic-island { position: absolute; z-index: 4; top: 8px; left: 50%; width: 72px; height: 20px; border-radius: 20px; transform: translateX(-50%); background: #090909; }
@@ -151,11 +146,8 @@ footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18
   .subhead { margin: 9px 0 10px; font-size: 15px; }
   .testflight-button { padding:8px 12px; font-size:10px; }
   .phone-stage { width:100%; height:317px; padding:0; place-items:start center; }
-  .orbit-one { width: 310px; height: 310px; }
-  .orbit-two { width: 260px; height: 350px; }
   .phone { width:218px; height:440px; border-radius:37px; transform:scale(.72); transform-origin:top center; }
   .phone-screen { border-radius: 31px; padding: 23px 9px 16px; }
-  .phone-stage::after { display:none; }
   .app-copy { margin-top: 7px; }
   .app-copy h2 { font-size: 17px; }
   .welcome-previews { gap:7px; }
@@ -205,8 +197,6 @@ footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18
     </section>
 
     <section class="phone-stage" aria-label="Preview of the Howl app">
-      <div class="orbit orbit-one" aria-hidden="true"></div>
-      <div class="orbit orbit-two" aria-hidden="true"></div>
       <div class="phone">
         <div class="phone-screen">
           <div class="dynamic-island" aria-hidden="true"></div>
