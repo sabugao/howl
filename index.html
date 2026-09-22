@@ -245,11 +245,6 @@ footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18
     </section>
   </main>
 
-  <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
-    <div><p class="eyebrow">First howls</p><h2 id="waitlist-title">Join the waitlist.</h2><p class="waitlist-copy">Get an invite when your circle is ready. We’re opening Howl in small packs, not an empty room.</p></div>
-    <div><form class="waitlist-form" id="waitlistForm"><input id="waitlistEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address" required><button type="submit">Get an invite</button></form><p class="waitlist-note" id="waitlistNote">One email when your invite is ready. Nothing else.</p></div>
-  </section>
-
   <footer>
     <div class="footer-mark">
       <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
@@ -259,23 +254,6 @@ footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18
   </footer>
 
   <script>
-const SUPABASE_URL = 'https://xegfqceggxctxtpcjmnj.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_q4b6W2GSS1W3JloWhj3Vvw_JRNnkhPi';
-const waitlistForm = document.querySelector('#waitlistForm');
-const waitlistNote = document.querySelector('#waitlistNote');
-waitlistForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const email = document.querySelector('#waitlistEmail').value.trim().toLowerCase();
-  const button = waitlistForm.querySelector('button');
-  button.disabled = true; button.textContent = 'Joining…';
-  try {
-    const response = await fetch(SUPABASE_URL + '/rest/v1/waitlist', { method: 'POST', headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify({ email, source: 'landing_page' }) });
-    if (!response.ok && response.status !== 409) throw new Error('request failed');
-    waitlistNote.textContent = 'You’re on the list. We’ll send your invite when your pack opens.'; waitlistNote.classList.add('success'); waitlistForm.reset();
-  } catch (_) { waitlistNote.textContent = 'Couldn’t join right now. Try again in a moment.'; }
-  finally { button.disabled = false; button.textContent = 'Get an invite'; }
-});
-
 function pseudo(i, seed) {
   const value = Math.sin(i * 12.9898 + seed * 78.233) * 43758.5453;
   return value - Math.floor(value);
