@@ -49,7 +49,8 @@ body {
 .brand { display: inline-flex; align-items: center; gap: 9px; color: inherit; text-decoration: none; font-weight: 760; font-size: 24px; letter-spacing: -.05em; }
 .signal { width: 29px; height: 18px; overflow: visible; }
 .signal path { fill: none; stroke: currentColor; stroke-width: 6; stroke-linecap: round; }
-.status { font-size:12px; letter-spacing:.01em; color:rgba(14,18,22,.58); text-decoration:none; }.status:hover, .status:focus-visible { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.status { font-size:12px; letter-spacing:.01em; color:rgba(14,18,22,.58); text-decoration:none; }
+.status:hover, .status:focus-visible { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
 
 .hero {
   width: min(1120px, calc(100% - 48px));
@@ -65,7 +66,8 @@ body {
 .eyebrow { margin: 0 0 13px; font-size: 10px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; color: var(--pulse); }
 h1 { margin: 0; max-width: 650px; font-size: clamp(58px, min(7vw, 10vh), 88px); line-height: .88; letter-spacing: -.07em; font-weight: 780; }
 .subhead { margin: 18px 0 20px; font-size: clamp(18px, 2vw, 24px); line-height: 1.3; letter-spacing: -.035em; color: rgba(14,18,22,.58); }
-.testflight-button { display:inline-flex; align-items:center; gap:9px; padding:10px 15px; border:1px solid var(--ink); background:var(--ink); color:white; text-decoration:none; backdrop-filter:blur(16px); border-radius:999px; font-size:12px; font-weight:720; box-shadow:0 12px 40px rgba(35,34,45,.12); transition:transform .2s ease, box-shadow .2s ease; }.testflight-button:hover, .testflight-button:focus-visible { transform:translateY(-2px); box-shadow:0 16px 44px rgba(35,34,45,.18); }
+.testflight-button { display:inline-flex; align-items:center; gap:9px; padding:10px 15px; border:1px solid var(--ink); background:var(--ink); color:white; text-decoration:none; backdrop-filter:blur(16px); border-radius:999px; font-size:12px; font-weight:720; box-shadow:0 12px 40px rgba(35,34,45,.12); transition:transform .2s ease, box-shadow .2s ease; }
+.testflight-button:hover, .testflight-button:focus-visible { transform:translateY(-2px); box-shadow:0 16px 44px rgba(35,34,45,.18); }
 .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--pulse); box-shadow: 0 0 0 4px rgba(15,124,148,.12); animation: breathe 2.4s ease-in-out infinite; }
 @keyframes breathe { 50% { transform: scale(.75); box-shadow: 0 0 0 8px rgba(15,124,148,.04); } }
 
@@ -196,10 +198,10 @@ footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18
       <p class="eyebrow">A social network for sound</p>
       <h1>Hear what's<br>happening.</h1>
       <p class="subhead">Tiny sounds from real people.</p>
-      <div class="coming-soon">
+      <a class="testflight-button" href="https://testflight.apple.com/join/45K6x9tp" target="_blank" rel="noopener">
         <span class="pulse" aria-hidden="true"></span>
         Join Howl on TestFlight
-      </div>
+      </a>
     </section>
 
     <section class="phone-stage" aria-label="Preview of the Howl app">
