@@ -8,168 +8,174 @@
   <link rel="alternate icon" href="/favicon.ico">
   <meta name="description" content="Howl. Tiny sounds from real people.">
   <title>Howl - Hear what's happening.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
   <style>
 :root {
   --glacier: #fbfbfd;
   --ink: #0e1216;
-  --pulse: #0f7c94;
+  --pulse: #4cd7f6;
+  --pulse-deep: #0f7c94;
   --peach: #ffc7ad;
   --mint: #9eeed6;
   --lilac: #c7b5f2;
-  --white-glass: rgba(255,255,255,.48);
+  --muted: rgba(14,18,22,.58);
+  --pad: clamp(22px, 4vw, 56px);
+  --rounded: ui-rounded, "SF Pro Rounded", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html, body { margin: 0; min-height: 100%; }
 body {
-  margin: 0;
   min-height: 100svh;
   overflow-x: hidden;
   background: var(--glacier);
   color: var(--ink);
-  font-family: ui-rounded, "SF Pro Rounded", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--rounded);
   -webkit-font-smoothing: antialiased;
 }
+a { color: inherit; }
 
-.aurora { position: fixed; inset: 0; overflow: hidden; z-index: -2; background: var(--glacier); }
-.blob { position: absolute; border-radius: 50%; filter: blur(74px); opacity: .58; will-change: transform; }
-.blob-peach { width: 72vw; height: 48vw; min-height: 440px; left: -23vw; top: -17vw; background: var(--peach); animation: drift-peach 18s ease-in-out infinite alternate; }
-.blob-mint { width: 72vw; height: 45vw; min-height: 430px; left: 22vw; top: 12vh; background: var(--mint); animation: drift-mint 22s ease-in-out infinite alternate; }
-.blob-lilac { width: 68vw; height: 50vw; min-height: 460px; right: -18vw; bottom: -21vw; background: var(--lilac); animation: drift-lilac 25s ease-in-out infinite alternate; }
+/* Living aurora, same palette and motion as the app's HowlBackground. */
+.aurora { position: fixed; inset: 0; overflow: hidden; z-index: -1; background: var(--glacier); }
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .6; will-change: transform; }
+.blob-peach { width: 78vw; height: 56vh; left: -22vw; top: -16vh; background: var(--peach); animation: drift-peach 18s ease-in-out infinite alternate; }
+.blob-mint { width: 80vw; height: 52vh; left: 18vw; top: 22vh; background: var(--mint); animation: drift-mint 22s ease-in-out infinite alternate; }
+.blob-lilac { width: 74vw; height: 58vh; right: -20vw; bottom: -22vh; background: var(--lilac); animation: drift-lilac 25s ease-in-out infinite alternate; }
 @keyframes drift-peach { to { transform: translate(11vw, 8vh) rotate(13deg) scale(1.08); } }
 @keyframes drift-mint { to { transform: translate(-10vw, -7vh) rotate(-10deg) scale(.96); } }
 @keyframes drift-lilac { to { transform: translate(-8vw, -9vh) rotate(15deg) scale(1.06); } }
 
-.site-header, footer {
-  width: min(1180px, calc(100% - 48px));
-  margin-inline: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.page {
+  min-height: 100svh;
+  padding: var(--pad);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(18px, 3vh, 36px);
 }
-.site-header { height: 62px; }
-.brand { display: inline-flex; align-items: center; gap: 9px; color: inherit; text-decoration: none; font-weight: 760; font-size: 24px; letter-spacing: -.05em; }
-.signal { width: 29px; height: 18px; overflow: visible; }
+
+.top, .bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.signal { width: 38px; height: 22px; overflow: visible; }
 .signal path { fill: none; stroke: currentColor; stroke-width: 6; stroke-linecap: round; }
-.status { font-size:12px; letter-spacing:.01em; color:rgba(14,18,22,.58); text-decoration:none; }
-.status:hover, .status:focus-visible { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.wordmark { font-family: "Quicksand", var(--rounded); font-weight: 700; font-size: 30px; letter-spacing: -.02em; line-height: 1; }
+.top-link { font-size: 17px; color: var(--muted); text-decoration: none; }
+.top-link:hover, .top-link:focus-visible { color: var(--ink); }
 
 .hero {
-  width: min(1120px, calc(100% - 48px));
-  min-height: 0;
-  height: 100%;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, .82fr) minmax(420px, 1.18fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: clamp(28px, 5vw, 70px);
+  gap: clamp(28px, 5vw, 96px);
+  min-height: 0;
 }
-.copy { padding-bottom: 12px; }
-.eyebrow { margin: 0 0 13px; font-size: 10px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; color: var(--pulse); }
-h1 { margin: 0; max-width: 650px; font-size: clamp(58px, min(7vw, 10vh), 88px); line-height: .88; letter-spacing: -.07em; font-weight: 780; }
-.subhead { margin: 18px 0 20px; font-size: clamp(18px, 2vw, 24px); line-height: 1.3; letter-spacing: -.035em; color: rgba(14,18,22,.58); }
-.testflight-button { display:inline-flex; align-items:center; gap:9px; padding:10px 15px; border:1px solid var(--ink); background:var(--ink); color:white; text-decoration:none; backdrop-filter:blur(16px); border-radius:999px; font-size:12px; font-weight:720; box-shadow:0 12px 40px rgba(35,34,45,.12); transition:transform .2s ease, box-shadow .2s ease; }
-.testflight-button:hover, .testflight-button:focus-visible { transform:translateY(-2px); box-shadow:0 16px 44px rgba(35,34,45,.18); }
-.pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--pulse); box-shadow: 0 0 0 4px rgba(15,124,148,.12); animation: breathe 2.4s ease-in-out infinite; }
-@keyframes breathe { 50% { transform: scale(.75); box-shadow: 0 0 0 8px rgba(15,124,148,.04); } }
-
-.phone-stage { position: relative; height: 100%; display: grid; place-items: center; padding: 4px 0; }
-.phone { position: relative; height: clamp(410px, 57vh, 520px); aspect-ratio: 163 / 330; padding: 6px; border-radius: 42px; background: linear-gradient(145deg, #1b1c20, #050506 55%, #24252a); box-shadow: 0 28px 70px rgba(38,29,53,.21), 0 3px 7px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.18); z-index: 1; }
-.phone::after { content: ""; position: absolute; inset: 2px; border-radius: 40px; border: 1px solid rgba(255,255,255,.3); pointer-events: none; }
-.phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 36px; background: rgba(251,251,253,.9); padding: 24px 10px 17px; display: flex; flex-direction: column; }
-.phone-screen::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 105% 46% at 5% 8%, rgba(255,199,173,.66), transparent 68%), radial-gradient(ellipse 100% 44% at 92% 47%, rgba(158,238,214,.61), transparent 68%), radial-gradient(ellipse 110% 47% at 24% 94%, rgba(199,181,242,.62), transparent 72%); filter: blur(13px); transform: scale(1.1); }
-.dynamic-island { position: absolute; z-index: 4; top: 8px; left: 50%; width: 72px; height: 20px; border-radius: 20px; transform: translateX(-50%); background: #090909; }
-.app-bar { display: flex; align-items: center; gap: 5px; height: 31px; padding: 0 3px; }
-.app-signal { width: 16px; height: 10px; }
-.app-signal path { stroke-width: 7; }
-.app-wordmark { font-size: 15px; line-height: 1; font-weight: 790; letter-spacing: -.06em; }
-.app-copy { margin: 8px 2px 8px; }
-.app-copy h2 { margin: 0; font-size: 19px; line-height: 1.05; letter-spacing: -.045em; }
-.app-copy p { margin: 3px 0 0; font-size: 10px; color: rgba(14,18,22,.57); }
-.welcome-previews { display:grid; gap:8px; }
-.howl-card { position:relative; border:1px solid rgba(255,255,255,.72); background:rgba(255,255,255,.48); box-shadow:0 7px 22px rgba(38,29,53,.045); color:var(--ink); font:inherit; cursor:pointer; transition:transform .25s ease, box-shadow .25s ease; }
-.howl-card:hover, .howl-card.playing { transform:scale(1.012); box-shadow:0 10px 28px rgba(15,124,148,.13); }
-.lead-howl { min-height:108px; padding:11px; border-radius:21px; display:flex; flex-direction:column; gap:5px; text-align:left; }
-.lead-top { display:flex; align-items:center; gap:10px; }
-.lead-meta { display:grid; gap:2px; }
-.howl-handle { font-size:11px; font-weight:760; letter-spacing:-.02em; }
-.howl-duration { font-size:8px; color:rgba(14,18,22,.52); font-variant-numeric:tabular-nums; }
-.card-play { width:29px; height:29px; margin-left:auto; display:grid; place-items:center; border-radius:50%; color:white; background:var(--pulse); font-size:10px; }
-.avatar { width:36px; height:36px; display:grid; place-items:center; flex:0 0 auto; border-radius:50%; color:white; font-size:11px; font-weight:700; border:1px solid rgba(255,255,255,.45); }
-.wave { width:100%; height:29px; display:flex; align-items:center; justify-content:center; gap:1.5px; }
-.wave i { width:2px; min-height:3px; border-radius:2px; background:rgba(14,18,22,.62); transition:height .25s ease, background .25s ease; }
-.playing .wave i { background:var(--pulse); animation:jump .7s ease-in-out infinite alternate; animation-delay:calc(var(--n) * -35ms); }
-@keyframes jump { to { height:4px !important; } }
-.supporting-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.supporting-howl { min-height:82px; padding:8px; border-radius:18px; display:flex; flex-direction:column; gap:5px; text-align:left; }
-.supporting-top { display:flex; align-items:center; }
-.supporting-howl .avatar { width:27px; height:27px; font-size:8px; }
-.supporting-howl .card-play { width:19px; height:19px; font-size:8px; }
-.supporting-howl .wave { height:17px; gap:1px; }
-.supporting-howl .wave i { width:1.25px; }
-.supporting-meta { display:flex; align-items:center; justify-content:space-between; gap:4px; }
-.supporting-howl .howl-handle { font-size:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.supporting-howl .howl-duration { font-size:7px; }
-.auth-actions { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px 2px 1px; }
-.auth { min-height: 31px; border: 1px solid rgba(255,255,255,.66); border-radius: 999px; font: inherit; font-size: 10px; font-weight: 720; color: var(--ink); background: rgba(255,255,255,.34); backdrop-filter: blur(15px); }
-.auth.primary { border-color: var(--ink); color: white; background: var(--ink); }
-.home-indicator { position: absolute; bottom: 6px; left: 50%; width: 76px; height: 3px; border-radius: 8px; background: var(--ink); transform: translateX(-50%); opacity: .85; }
-
-.waitlist { width: min(1120px, calc(100% - 48px)); margin: 4px auto 8px; padding: 16px 24px; display:grid; grid-template-columns: minmax(0,.82fr) minmax(420px,1.18fr); gap: clamp(28px,5vw,70px); align-items:center; border:1px solid rgba(255,255,255,.72); border-radius:24px; background:rgba(255,255,255,.32); backdrop-filter:blur(28px); box-shadow:0 16px 48px rgba(38,29,53,.07); }
-.waitlist .eyebrow { margin-bottom: 6px; }
-.waitlist h2 { margin:0; font-size:clamp(26px,3vw,38px); line-height:.98; letter-spacing:-.055em; }
-.waitlist-copy { margin:7px 0 0; color:rgba(14,18,22,.58); font-size:13px; line-height:1.35; }
-.waitlist-form { display:flex; gap:8px; padding:5px; border:1px solid rgba(255,255,255,.78); border-radius:999px; background:rgba(255,255,255,.5); box-shadow:0 10px 28px rgba(38,29,53,.06); }
-.waitlist-form input { min-width:0; flex:1; padding:0 14px; border:0; outline:0; background:transparent; color:var(--ink); font:inherit; font-size:13px; }
-.waitlist-form button { min-height:38px; padding:0 17px; border:0; border-radius:999px; background:var(--ink); color:white; font:inherit; font-size:11px; font-weight:720; cursor:pointer; }
-.waitlist-note { min-height:14px; margin:5px 10px 0; color:rgba(14,18,22,.54); font-size:9px; }
-.waitlist-note.success { color:var(--pulse); }
-footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18,22,.09); font-size: 10px; color: rgba(14,18,22,.5); }
-.footer-mark { display: flex; align-items: center; gap: 8px; color: rgba(14,18,22,.72); }
-.footer-mark .signal { width: 18px; height: 11px; }
-.footer-mark .signal path { stroke-width: 7; }
-.footer-links { display:flex; align-items:center; gap:15px; }
-.footer-links a { color:inherit; text-decoration:none; }
-.footer-links a:hover, .footer-links a:focus-visible { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
-
-@media (min-width: 821px) {
-  body { height: 100svh; overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; }
+.eyebrow { margin: 0 0 clamp(14px, 2vh, 24px); font-size: clamp(12px, 1vw, 15px); font-weight: 750; letter-spacing: .16em; text-transform: uppercase; color: var(--pulse-deep); }
+h1 {
+  margin: 0;
+  font-size: clamp(64px, min(9.4vw, 15vh), 156px);
+  line-height: .86;
+  letter-spacing: -.065em;
+  font-weight: 790;
 }
-
-@media (max-width: 820px) {
-  .site-header, footer, .hero { width: min(100% - 30px, 620px); }
-  .site-header { height: 48px; }
-  .brand { font-size: 21px; }
-  .site-header .status { display: none; }
-  .hero { min-height: 0; height:auto; margin-top: 4px; display: flex; flex-direction: column; gap: 10px; }
-  .copy { width: 100%; padding: 0; text-align: left; }
-  .eyebrow { margin-bottom: 7px; font-size: 8px; }
-  h1 { font-size: clamp(40px, 11.5vw, 50px); line-height: .9; }
-  .subhead { margin: 9px 0 10px; font-size: 15px; }
-  .testflight-button { padding:8px 12px; font-size:10px; }
-  .phone-stage { width:100%; height:317px; padding:0; place-items:start center; }
-  .phone { width:218px; height:440px; border-radius:37px; transform:scale(.72); transform-origin:top center; }
-  .phone-screen { border-radius: 31px; padding: 23px 9px 16px; }
-  .app-copy { margin-top: 7px; }
-  .app-copy h2 { font-size: 17px; }
-  .welcome-previews { gap:7px; }
-  .lead-howl { min-height:108px; padding:11px; }
-  .supporting-row { gap:7px; }
-  .supporting-howl { min-height:82px; padding:8px; }
-  .auth-actions { padding-top: 7px; }
-  .waitlist { width:min(100% - 30px,620px); margin:8px auto 8px; padding:13px 14px; grid-template-columns:1fr; gap:8px; border-radius:19px; }
-  .waitlist h2 { font-size:27px; }
-  .waitlist-copy { margin-top:5px; font-size:11px; line-height:1.25; }
-  .waitlist-form { align-items:stretch; border-radius:999px; flex-direction:row; padding:4px; }
-  .waitlist-form input { min-height:34px; padding:0 10px; font-size:11px; }
-  .waitlist-form button { width:auto; min-height:34px; padding:0 13px; font-size:10px; }
-  footer { margin-top:0; min-height:42px; padding:7px 0 9px; align-items:center; gap:8px; flex-direction:row; font-size:8px; }
+.subhead { margin: clamp(18px, 3vh, 30px) 0 clamp(26px, 4vh, 44px); font-size: clamp(21px, 2.3vw, 36px); line-height: 1.2; letter-spacing: -.035em; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+.cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 28px;
+  border-radius: 999px;
+  background: var(--ink); color: #fff;
+  font-size: clamp(17px, 1.3vw, 20px); font-weight: 720; letter-spacing: -.01em;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
+.cta:hover, .cta:focus-visible { transform: translateY(-2px); box-shadow: 0 18px 46px rgba(35,34,45,.2); }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--pulse); box-shadow: 0 0 0 5px rgba(76,215,246,.18); animation: breathe 2.4s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(.75); box-shadow: 0 0 0 9px rgba(76,215,246,.05); } }
+.hint { font-size: clamp(15px, 1.1vw, 17px); color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+.hint svg { width: 18px; height: 18px; fill: var(--pulse-deep); }
 
+/* Device: the real in-app welcome wall, drawn at iPhone points (390x844) and scaled to fit. */
+.stage { display: grid; place-items: center; }
+.phone {
+  --h: clamp(520px, 76svh, 800px);
+  height: var(--h);
+  width: calc(var(--h) * 390 / 844 + 24px);
+  padding: 12px;
+  border-radius: calc(var(--h) * .085);
+  background: linear-gradient(145deg, #1b1c20, #050506 55%, #24252a);
+  box-shadow: 0 50px 110px rgba(38,29,53,.22), 0 12px 30px rgba(38,29,53,.14);
+  position: relative;
+}
+.screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: calc(var(--h) * .07); background: var(--glacier); }
+.canvas { position: absolute; left: 0; top: 0; width: 390px; height: 844px; transform-origin: 0 0; transform: scale(var(--s, 1)); display: flex; flex-direction: column; }
+.canvas::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 90% 40% at 12% 12%, rgba(255,199,173,.75), transparent 70%),
+    radial-gradient(ellipse 95% 38% at 55% 52%, rgba(158,238,214,.7), transparent 70%),
+    radial-gradient(ellipse 90% 42% at 85% 92%, rgba(199,181,242,.75), transparent 70%),
+    var(--glacier);
+}
+.island { position: absolute; top: 11px; left: 50%; width: 124px; height: 36px; border-radius: 20px; transform: translateX(-50%); background: #070708; z-index: 3; }
+.app-bar { margin-top: 56px; padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+.app-bar .signal { width: 30px; height: 17px; }
+.app-bar .signal path { stroke-width: 7; }
+.app-bar .wordmark { font-size: 24px; }
+.app-body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 0 16px 18px; }
+.app-title { margin: 0; font-size: 34px; line-height: 1.05; font-weight: 700; letter-spacing: -.02em; }
+.app-sub { margin: 6px 0 0; font-size: 20px; color: rgba(60,60,67,.6); }
+.rows { display: grid; gap: 12px; }
+.row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.72);
+  background: rgba(255,255,255,.48);
+  color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.row:hover { transform: scale(1.01); }
+.row.playing { transform: scale(1.02); box-shadow: 0 0 24px rgba(76,215,246,.35); }
+.who { width: 76px; flex: 0 0 76px; display: grid; justify-items: center; gap: 3px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 15px; font-weight: 600; border: 1px solid rgba(255,255,255,.35); }
+.handle { font-size: 11px; font-weight: 600; max-width: 76px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wave { flex: 1; height: 28px; display: flex; align-items: center; justify-content: space-between; }
+.wave i { display: block; flex: 0 0 auto; width: 3.5px; border-radius: 2px; background: rgba(14,18,22,.7); transition: background .2s ease; }
+.playing .wave i { background: var(--pulse-deep); }
+.btn { width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; background: var(--pulse-deep); display: grid; place-items: center; }
+.btn svg { width: 12px; height: 12px; fill: #fff; }
+.auth { display: flex; gap: 16px; padding: 0 16px 36px; }
+.auth span { flex: 1; min-height: 50px; display: grid; place-items: center; border-radius: 999px; font-size: 17px; font-weight: 600; }
+.auth .secondary { background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.8); }
+.auth .primary { background: var(--ink); color: #fff; }
+.home { position: absolute; bottom: 9px; left: 50%; width: 134px; height: 5px; border-radius: 5px; background: var(--ink); transform: translateX(-50%); }
+
+.bottom { font-size: 15px; color: var(--muted); }
+.bottom .brandline { display: inline-flex; align-items: center; gap: 10px; color: rgba(14,18,22,.75); }
+.bottom .signal { width: 22px; height: 13px; }
+.bottom .signal path { stroke-width: 7; }
+.links { display: flex; gap: 22px; }
+.links a { text-decoration: none; }
+.links a:hover, .links a:focus-visible { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; }
+  h1 { font-size: clamp(56px, 15vw, 96px); }
+  .top-link .long { display: none; }
+  .phone { --h: min(680px, 150vw); }
+  .stage { padding-bottom: 8px; }
+}
+@media (max-width: 520px) {
+  .wordmark { font-size: 26px; }
+  .top-link { font-size: 15px; }
+  .cta { width: 100%; justify-content: center; }
+  .actions { gap: 14px; }
+  .bottom { flex-direction: column; align-items: flex-start; font-size: 13px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition: none !important; }
 }
-
   </style>
 </head>
 <body>
@@ -179,94 +185,130 @@ footer { min-height: 44px; padding: 8px 0 10px; border-top: 1px solid rgba(14,18
     <span class="blob blob-lilac"></span>
   </div>
 
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Howl home">
-      <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
-      <span>howl</span>
-    </a>
-    <a class="status" href="https://testflight.apple.com/join/45K6x9tp" target="_blank" rel="noopener">Now testing on TestFlight</a>
-  </header>
-
-  <main id="top" class="hero">
-    <section class="copy">
-      <p class="eyebrow">A social network for sound</p>
-      <h1>Hear what's<br>happening.</h1>
-      <p class="subhead">Tiny sounds from real people.</p>
-      <a class="testflight-button" href="https://testflight.apple.com/join/45K6x9tp" target="_blank" rel="noopener">
-        <span class="pulse" aria-hidden="true"></span>
-        Join Howl on TestFlight
+  <div class="page">
+    <header class="top">
+      <a class="brand" href="#top" aria-label="Howl home">
+        <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
+        <span class="wordmark">howl</span>
       </a>
-    </section>
+      <a class="top-link" href="https://testflight.apple.com/join/45K6x9tp" target="_blank" rel="noopener"><span class="long">Now testing on </span>TestFlight</a>
+    </header>
 
-    <section class="phone-stage" aria-label="Preview of the Howl app">
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="dynamic-island" aria-hidden="true"></div>
-          <div class="app-bar">
-            <svg class="signal app-signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
-            <span class="app-wordmark">howl</span>
-          </div>
+    <main id="top" class="hero">
+      <section class="copy">
+        <p class="eyebrow">A social network for sound</p>
+        <h1>Hear what's<br>happening.</h1>
+        <p class="subhead">Tiny sounds from real people.</p>
+        <div class="actions">
+          <a class="cta" href="https://testflight.apple.com/join/45K6x9tp" target="_blank" rel="noopener">
+            <span class="dot" aria-hidden="true"></span>
+            Join Howl on TestFlight
+          </a>
+          <span class="hint"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z"/></svg>Tap a howl to listen</span>
+        </div>
+      </section>
 
-          <div class="app-copy">
-            <h2>Hear what's happening.</h2>
-            <p>Tiny sounds from real people.</p>
-          </div>
-
-          <div class="welcome-previews" aria-label="Playable sounds from people">
-            <button class="howl-card lead-howl" type="button" aria-label="Play 0:18 howl by @rafinha" data-seed="11">
-              <span class="lead-top"><span class="avatar" style="background:linear-gradient(145deg,#ffaf65,#e66e3d)">RB</span><span class="lead-meta"><span class="howl-handle">@rafinha</span><span class="howl-duration">0:18</span></span><span class="card-play">▶</span></span>
-              <span class="wave"></span>
-            </button>
-            <div class="supporting-row">
-              <button class="howl-card supporting-howl" type="button" aria-label="Play 0:11 howl by @boriswei" data-seed="37">
-                <span class="supporting-top"><span class="avatar" style="background:linear-gradient(145deg,#67d9cd,#23837d)">BW</span><span class="card-play">▶</span></span><span class="wave"></span><span class="supporting-meta"><span class="howl-handle">@boriswei</span><span class="howl-duration">0:11</span></span>
-              </button>
-              <button class="howl-card supporting-howl" type="button" aria-label="Play 0:24 howl by @emmdias" data-seed="41">
-                <span class="supporting-top"><span class="avatar" style="background:linear-gradient(145deg,#c49a7a,#765340)">ED</span><span class="card-play">▶</span></span><span class="wave"></span><span class="supporting-meta"><span class="howl-handle">@emmdias</span><span class="howl-duration">0:24</span></span>
-              </button>
+      <section class="stage" aria-label="Howl's welcome screen, with playable howls">
+        <div class="phone">
+          <div class="screen">
+            <div class="canvas">
+              <div class="island" aria-hidden="true"></div>
+              <div class="app-bar" aria-hidden="true">
+                <svg class="signal" viewBox="0 0 56 30"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
+                <span class="wordmark">howl</span>
+              </div>
+              <div class="app-body">
+                <div>
+                  <p class="app-title">Hear what’s happening.</p>
+                  <p class="app-sub">Tiny sounds from real people.</p>
+                </div>
+                <div class="rows" id="rows"></div>
+              </div>
+              <div class="auth" aria-hidden="true"><span class="secondary">Sign up</span><span class="primary">Log in</span></div>
+              <div class="home" aria-hidden="true"></div>
             </div>
           </div>
-
-          <div class="auth-actions">
-            <button type="button" class="auth secondary">Sign up</button>
-            <button type="button" class="auth primary">Log in</button>
-          </div>
-          <div class="home-indicator" aria-hidden="true"></div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer>
-    <div class="footer-mark">
-      <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
-      <span>Make a sound. The pack answers.</span>
-    </div>
-    <div class="footer-links"><a href="/privacy/">Privacy</a><span>iPhone first.</span></div>
-  </footer>
+    <footer class="bottom">
+      <span class="brandline">
+        <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
+        Make a sound. The pack answers.
+      </span>
+      <nav class="links"><a href="/privacy/">Privacy</a><span>iPhone first.</span></nav>
+    </footer>
+  </div>
 
   <script>
+/*
+ * Public clip set. Only clips whose creator agreed to PUBLIC web playback
+ * belong here with publicWeb: true. Consent for the in-app welcome screen
+ * does not cover this page. Files live in /audio/ in this repo; never point
+ * at the app's Supabase storage (that bucket is private).
+ * Order and seeds match the app's WelcomeSamples.swift.
+ */
+const HOWL_CLIPS = [
+  // Tuxu consented to the in-app welcome screen only. Add his clip
+  // (/audio/welcome-tuxu.m4a) and flip publicWeb only after he OKs public web use.
+  { handle: 'tuxu', initials: 'T', color: '#af52de', seed: 71, src: '/audio/welcome-tuxu.m4a', publicWeb: false },
+  { handle: 'dan', initials: 'D', color: '#4cd7f6', seed: 11, src: '/audio/welcome-dan.m4a', publicWeb: true },
+  { handle: 'samtheprompts', initials: 'SP', color: '#30b0c7', seed: 89, src: '/audio/welcome-sam-dumbways.m4a', publicWeb: true },
+  { handle: 'vira', initials: 'V', color: '#ff2d55', seed: 53, src: '/audio/welcome-vira.m4a', publicWeb: true },
+  { handle: 'samtheprompts', initials: 'SP', color: '#30b0c7', seed: 37, src: '/audio/welcome-sam.m4a', publicWeb: true },
+];
+
+const PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z"/></svg>';
+const PAUSE = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg>';
+
+// Same pseudo-random bars as the app's WaveformView (32 bars).
 function pseudo(i, seed) {
-  const value = Math.sin(i * 12.9898 + seed * 78.233) * 43758.5453;
-  return value - Math.floor(value);
+  const v = Math.sin(i * 12.9898 + seed * 78.233) * 43758.5453;
+  return v - Math.floor(v);
+}
+function lighten(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  const c = [n >> 16, (n >> 8) & 255, n & 255].map((x) => Math.round(x + (255 - x) * amt));
+  return `rgb(${c.join(',')})`;
 }
 
-document.querySelectorAll('.howl-card').forEach((button) => {
-  const seed = Number(button.dataset.seed);
-  const count = button.classList.contains('lead-howl') ? 42 : 22;
-  button.querySelector('.wave').innerHTML = Array.from({ length: count }, (_, i) => {
-    const height = Math.max(3, Math.round(5 + pseudo(i, seed) * (button.classList.contains('lead-howl') ? 30 : 16)));
-    return `<i style="height:${height}px;--n:${i}"></i>`;
-  }).join('');
-  button.addEventListener('click', () => {
-    document.querySelectorAll('.howl-card').forEach((card) => {
-      if (card !== button) { card.classList.remove('playing'); card.querySelector('.card-play').textContent = '▶'; }
-    });
-    button.classList.toggle('playing');
-    button.querySelector('.card-play').textContent = button.classList.contains('playing') ? 'Ⅱ' : '▶';
-  });
-});
+const audio = new Audio();
+audio.preload = 'none';
+let current = null;
 
+function setState(row, playing) {
+  row.classList.toggle('playing', playing);
+  row.querySelector('.btn').innerHTML = playing ? PAUSE : PLAY;
+  row.setAttribute('aria-pressed', String(playing));
+}
+
+const rowsEl = document.getElementById('rows');
+HOWL_CLIPS.filter((c) => c.publicWeb).forEach((clip) => {
+  const row = document.createElement('button');
+  row.type = 'button';
+  row.className = 'row';
+  row.setAttribute('aria-label', `Play howl by @${clip.handle}`);
+  row.setAttribute('aria-pressed', 'false');
+  const bars = Array.from({ length: 32 }, (_, i) => `<i style="height:${Math.max(2, 28 * (0.12 + 0.88 * pseudo(i, clip.seed))).toFixed(1)}px"></i>`).join('');
+  row.innerHTML = `<span class="who"><span class="avatar" style="background:linear-gradient(180deg,${lighten(clip.color, .25)},${clip.color})">${clip.initials}</span><span class="handle" style="font-size:${clip.handle.length > 8 ? Math.max(7, 11 * 9 / clip.handle.length) : 11}px">@${clip.handle}</span></span><span class="wave" aria-hidden="true">${bars}</span><span class="btn">${PLAY}</span>`;
+  row.addEventListener('click', () => {
+    if (current === row && !audio.paused) { audio.pause(); return; }
+    if (current && current !== row) setState(current, false);
+    if (current !== row) { audio.src = clip.src; current = row; }
+    audio.play().then(() => setState(row, true)).catch(() => setState(row, false));
+  });
+  rowsEl.appendChild(row);
+});
+audio.addEventListener('pause', () => current && setState(current, false));
+audio.addEventListener('ended', () => current && setState(current, false));
+
+// Scale the 390x844 app canvas to the device frame.
+const screen = document.querySelector('.screen');
+const canvas = document.querySelector('.canvas');
+function fit() { canvas.style.setProperty('--s', screen.clientWidth / 390); }
+new ResizeObserver(fit).observe(screen);
+fit();
   </script>
 </body>
 </html>
