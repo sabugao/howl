@@ -38,13 +38,12 @@ a { color: inherit; }
 
 /* Living aurora, same palette and motion as the app's HowlBackground. */
 .aurora { position: fixed; inset: 0; overflow: hidden; z-index: -1; background: var(--glacier); }
-.blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .6; will-change: transform; }
-.blob-peach { width: 78vw; height: 56vh; left: -22vw; top: -16vh; background: var(--peach); animation: drift-peach 18s ease-in-out infinite alternate; }
-.blob-mint { width: 80vw; height: 52vh; left: 18vw; top: 22vh; background: var(--mint); animation: drift-mint 22s ease-in-out infinite alternate; }
-.blob-lilac { width: 74vw; height: 58vh; right: -20vw; bottom: -22vh; background: var(--lilac); animation: drift-lilac 25s ease-in-out infinite alternate; }
-@keyframes drift-peach { to { transform: translate(11vw, 8vh) rotate(13deg) scale(1.08); } }
-@keyframes drift-mint { to { transform: translate(-10vw, -7vh) rotate(-10deg) scale(.96); } }
-@keyframes drift-lilac { to { transform: translate(-8vw, -9vh) rotate(15deg) scale(1.06); } }
+/* Blobs are positioned each frame by the script below, using the same sin/cos
+   motion as the app's HowlBackground (Theme.swift). */
+.blob { position: absolute; left: 50%; top: 50%; border-radius: 50%; filter: blur(56px); opacity: .72; will-change: transform; }
+.blob-peach { width: 118vw; height: 58vh; background: #ffc7ad; }
+.blob-mint { width: 125vw; height: 52vh; background: #9eeed6; }
+.blob-lilac { width: 122vw; height: 56vh; background: #c7b5f2; }
 
 .page {
   /* Cap the composition so wide screens keep the 1440 balance; extra width goes to the margins. */
@@ -309,6 +308,38 @@ const canvas = document.querySelector('.canvas');
 function fit() { canvas.style.setProperty('--s', screen.clientWidth / 390); }
 new ResizeObserver(fit).observe(screen);
 fit();
-  </script>
+  
+// Living aurora: same formula as the app's HowlBackground (offsets in viewport
+// fractions, periods in seconds). Paused on prefers-reduced-motion.
+(() => {
+  const blobs = ['peach', 'mint', 'lilac'].map((n) => document.querySelector('.blob-' + n));
+  if (blobs.some((b) => !b)) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const place = (t) => {
+    const W = window.innerWidth, H = window.innerHeight;
+    const specs = [
+      [-0.26 * W + Math.sin(t / 7.0) * 0.12 * W, -0.27 * H + Math.cos(t / 9.0) * 0.07 * H, Math.sin(t / 11.0) * 9],
+      [Math.sin(t / 8.5) * 0.14 * W, Math.cos(t / 10.5) * 0.09 * H, Math.cos(t / 13.0) * 8],
+      [0.18 * W + Math.cos(t / 9.5) * 0.12 * W, 0.31 * H + Math.sin(t / 12.0) * 0.08 * H, Math.sin(t / 14.0) * 10],
+    ];
+    specs.forEach(([x, y, r], i) => {
+      blobs[i].style.transform = `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${r.toFixed(2)}deg)`;
+    });
+  };
+  const t0 = Date.now() / 1000;
+  let raf = 0, last = 0;
+  const frame = (ms) => {
+    raf = requestAnimationFrame(frame);
+    if (ms - last < 33) return; // ~30 fps, like the app's TimelineView
+    last = ms;
+    place(Date.now() / 1000 - t0 + 40);
+  };
+  const start = () => { cancelAnimationFrame(raf); if (reduce.matches) { place(40); } else { raf = requestAnimationFrame(frame); } };
+  reduce.addEventListener ? reduce.addEventListener('change', start) : reduce.addListener(start);
+  window.addEventListener('resize', () => { if (reduce.matches) place(40); });
+  place(40);
+  start();
+})();
+</script>
 </body>
 </html>
