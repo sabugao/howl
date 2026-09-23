@@ -122,7 +122,7 @@ h1 {
 .app-bar .signal path { stroke-width: 7; }
 .app-bar .wordmark { font-size: 24px; }
 .app-body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 0 16px 18px; }
-.app-title { margin: 0; font-size: 34px; line-height: 1.05; font-weight: 700; letter-spacing: -.02em; }
+.app-title { margin: 0; font-size: 30px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
 .app-sub { margin: 6px 0 0; font-size: 20px; color: rgba(60,60,67,.6); }
 .rows { display: grid; gap: 12px; }
 .row {
@@ -145,13 +145,14 @@ h1 {
 .playing .wave i { background: var(--pulse-deep); }
 .btn { width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; background: var(--pulse-deep); display: grid; place-items: center; }
 .btn svg { width: 12px; height: 12px; fill: #fff; }
-.auth { display: flex; gap: 16px; padding: 0 16px 36px; }
-.auth span { flex: 1; min-height: 50px; display: grid; place-items: center; border-radius: 999px; font-size: 17px; font-weight: 600; }
-.auth .secondary { background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.8); }
+/* Sized like the real app: content-width capsules in a centered row (HStack spacing 16). */
+.auth { display: flex; justify-content: center; gap: 16px; padding: 0 16px 84px; }
+.auth span { height: 30px; padding: 0 8px; display: grid; place-items: center; border-radius: 999px; font-size: 16px; font-weight: 600; letter-spacing: -.2px; }
+.auth .secondary { background: rgba(255,255,255,.85); color: var(--ink); box-shadow: 0 4px 14px rgba(20,24,40,.10); }
 .auth .primary { background: var(--ink); color: #fff; }
 .home { position: absolute; bottom: 9px; left: 50%; width: 134px; height: 5px; border-radius: 5px; background: var(--ink); transform: translateX(-50%); }
 
-.bottom { font-size: 15px; color: var(--muted); }
+.bottom { font-size: 15px; color: var(--muted); justify-content: flex-end; }
 .bottom .brandline { display: inline-flex; align-items: center; gap: 10px; color: rgba(14,18,22,.75); }
 .bottom .signal { width: 22px; height: 13px; }
 .bottom .signal path { stroke-width: 7; }
@@ -191,7 +192,6 @@ h1 {
         <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
         <span class="wordmark">howl</span>
       </a>
-      <a class="top-link" href="https://testflight.apple.com/join/45K6x9tp" target="_blank" rel="noopener"><span class="long">Now testing on </span>TestFlight</a>
     </header>
 
     <main id="top" class="hero">
@@ -204,7 +204,6 @@ h1 {
             <span class="dot" aria-hidden="true"></span>
             Join Howl on TestFlight
           </a>
-          <span class="hint"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z"/></svg>Tap a howl to listen</span>
         </div>
       </section>
 
@@ -233,11 +232,7 @@ h1 {
     </main>
 
     <footer class="bottom">
-      <span class="brandline">
-        <svg class="signal" viewBox="0 0 56 30" aria-hidden="true"><path d="M8 8a22 22 0 0 0 40 0"/></svg>
-        Make a sound. The pack answers.
-      </span>
-      <nav class="links"><a href="/privacy/">Privacy</a><span>iPhone first.</span></nav>
+      <nav class="links"><a href="/privacy/">Privacy</a></nav>
     </footer>
   </div>
 
@@ -250,9 +245,10 @@ h1 {
  * Order and seeds match the app's WelcomeSamples.swift.
  */
 const HOWL_CLIPS = [
-  // Tuxu consented to the in-app welcome screen only. Add his clip
-  // (/audio/welcome-tuxu.m4a) and flip publicWeb only after he OKs public web use.
-  { handle: 'tuxu', initials: 'T', color: '#af52de', seed: 71, src: '/audio/welcome-tuxu.m4a', publicWeb: false },
+  // Tuxu consented to the in-app welcome screen only. His card is enabled on
+  // this branch, but his clip (/audio/welcome-tuxu.m4a) is uploaded and the PR
+  // merged only after he OKs public web use.
+  { handle: 'tuxu', initials: 'T', color: '#af52de', seed: 71, src: '/audio/welcome-tuxu.m4a', publicWeb: true },
   { handle: 'dan', initials: 'D', color: '#4cd7f6', seed: 11, src: '/audio/welcome-dan.m4a', publicWeb: true },
   { handle: 'samtheprompts', initials: 'SP', color: '#30b0c7', seed: 89, src: '/audio/welcome-sam-dumbways.m4a', publicWeb: true },
   { handle: 'vira', initials: 'V', color: '#ff2d55', seed: 53, src: '/audio/welcome-vira.m4a', publicWeb: true },
