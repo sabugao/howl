@@ -245,13 +245,11 @@ h1 {
  * belong here with publicWeb: true. Consent for the in-app welcome screen
  * does not cover this page. Files live in /audio/ in this repo; never point
  * at the app's Supabase storage (that bucket is private).
- * Order and seeds match the app's WelcomeSamples.swift.
+ * Order and seeds match the app's WelcomeSamples.swift, minus Tuxu: he
+ * declined public web use (Sep 23). His clip stays in the app only; do not
+ * add it here without his new, explicit consent (HALLU-114).
  */
 const HOWL_CLIPS = [
-  // Tuxu consented to the in-app welcome screen only. His card is enabled on
-  // this branch, but his clip (/audio/welcome-tuxu.m4a) is uploaded and the PR
-  // merged only after he OKs public web use.
-  { handle: 'tuxu', initials: 'T', color: '#af52de', seed: 71, src: '/audio/welcome-tuxu.m4a', publicWeb: true },
   { handle: 'dan', initials: 'D', color: '#4cd7f6', seed: 11, src: '/audio/welcome-dan.m4a', publicWeb: true },
   { handle: 'samtheprompts', initials: 'SP', color: '#30b0c7', seed: 89, src: '/audio/welcome-sam-dumbways.m4a', publicWeb: true },
   { handle: 'vira', initials: 'V', color: '#ff2d55', seed: 53, src: '/audio/welcome-vira.m4a', publicWeb: true },
@@ -343,3 +341,4 @@ fit();
 </script>
 </body>
 </html>
+
